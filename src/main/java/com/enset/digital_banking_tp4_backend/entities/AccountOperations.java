@@ -1,5 +1,6 @@
 package com.enset.digital_banking_tp4_backend.entities;
 
+import com.enset.digital_banking_tp4_backend.enums.OperationType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
