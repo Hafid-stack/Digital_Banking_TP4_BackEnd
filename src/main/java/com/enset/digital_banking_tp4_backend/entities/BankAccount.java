@@ -1,31 +1,39 @@
 package com.enset.digital_banking_tp4_backend.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.sql.Date;
+import java.util.List;
+
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "TYPE",length=2)
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
 @Builder
-public class BankAccount extends Customer {
+public abstract class BankAccount   {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String id;
     @NotEmpty @Min(0)
     private double balance;
     @NotEmpty
-    private Date creditedDate;
+    private Date creditedAt;
     @NotEmpty
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private AccountStatus status;
     @NotEmpty
     private String currency;
+    @ManyToOne
+    private Customer customer;
+    @OneToMany(mappedBy = "bankAccount",fetch = FetchType.LAZY)
+    private List<AccountOperations> accountOperationList;
+
 }

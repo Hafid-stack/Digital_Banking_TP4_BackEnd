@@ -1,14 +1,14 @@
 package com.enset.digital_banking_tp4_backend.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -22,4 +22,6 @@ public class Customer {
     private String firstName;
     @NotEmpty
     private String email;
+    @OneToMany(mappedBy = "customer")
+    private List<BankAccount> bankAccounts;
 }
