@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
+
 import java.sql.Date;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public abstract class BankAccount   {
+public class BankAccount   {
     @Id
     private String id;
     @NotEmpty @Min(0)
