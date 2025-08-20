@@ -4,10 +4,12 @@ import com.enset.digital_banking_tp4_backend.enums.AccountStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 
-import java.sql.Date;
+//import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -20,11 +22,11 @@ import java.util.List;
 public class BankAccount   {
     @Id
     private String id;
-    @NotEmpty @Min(0)
+    @Min(0)
     private double balance;
-    @NotEmpty
-    private Date creditedAt;
-    @NotEmpty
+    @NotNull //its better to use this formart since i am using java17 and professor used 8
+    private LocalDate creditedAt;
+    @NotNull
     @Enumerated(EnumType.STRING)
     private AccountStatus status;
     @NotEmpty
