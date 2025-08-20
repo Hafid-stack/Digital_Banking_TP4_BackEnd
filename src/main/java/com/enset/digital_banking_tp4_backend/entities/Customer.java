@@ -11,15 +11,12 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@ToString
 @Builder
 public class Customer {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @NotEmpty @Size(min = 2, max = 50)
-    private String firstName;
+    private String name;
     @NotEmpty
     private String email;
     @OneToMany(mappedBy = "customer")
