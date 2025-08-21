@@ -1,9 +1,6 @@
 package com.enset.digital_banking_tp4_backend;
 
-import com.enset.digital_banking_tp4_backend.entities.AccountOperations;
-import com.enset.digital_banking_tp4_backend.entities.CurrentAccount;
-import com.enset.digital_banking_tp4_backend.entities.Customer;
-import com.enset.digital_banking_tp4_backend.entities.SavingAccount;
+import com.enset.digital_banking_tp4_backend.entities.*;
 import com.enset.digital_banking_tp4_backend.enums.AccountStatus;
 import com.enset.digital_banking_tp4_backend.enums.OperationType;
 import com.enset.digital_banking_tp4_backend.repository.AccountOperationsRepository;
@@ -28,6 +25,22 @@ public class BackEndApp {
         SpringApplication.run(BackEndApp.class, args);
     }
     @Bean
+    CommandLineRunner commandLineRunner(BankAccountRepository bankAccountRepository) {
+        return args -> {
+            bankAccountRepository.findById("d8081fce-5248-45c6-ad0a-b88bfc030d8e")
+                    .ifPresentOrElse(bankAccount -> {
+                        System.out.println("********************************");
+                        System.out.println(bankAccount);
+                        if (bankAccount instanceof SavingAccount) {
+                            System.out.println("Rate => " + ((SavingAccount) bankAccount).getInterestRate());
+                        } else if (bankAccount instanceof CurrentAccount) {
+                            System.out.println("Over Draft => " + ((CurrentAccount) bankAccount).getOverDraft());
+                        }
+                    }, () -> System.out.println("BankAccount not found by that id"));
+        };
+    }
+    //After running the app and adding the databases then we no more need this part, since it would keep adding the same data to the DB.
+    //@Bean
     CommandLineRunner start(CustomerRepository customerRepository,
                             BankAccountRepository bankAccountRepository,
                             AccountOperationsRepository accountOperationsRepository) {
@@ -82,6 +95,8 @@ public class BackEndApp {
 
 
             });
+
+
         };
     }
 
