@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -16,7 +17,7 @@ public class AccountOperations {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Date operationDate;
+    private LocalDate operationDate;
     private Double amount;
     @Enumerated(EnumType.STRING)
     private OperationType type;

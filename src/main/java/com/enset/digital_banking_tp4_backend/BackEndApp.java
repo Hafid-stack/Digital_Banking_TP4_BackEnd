@@ -1,9 +1,11 @@
 package com.enset.digital_banking_tp4_backend;
 
+import com.enset.digital_banking_tp4_backend.entities.AccountOperations;
 import com.enset.digital_banking_tp4_backend.entities.CurrentAccount;
 import com.enset.digital_banking_tp4_backend.entities.Customer;
 import com.enset.digital_banking_tp4_backend.entities.SavingAccount;
 import com.enset.digital_banking_tp4_backend.enums.AccountStatus;
+import com.enset.digital_banking_tp4_backend.enums.OperationType;
 import com.enset.digital_banking_tp4_backend.repository.AccountOperationsRepository;
 import com.enset.digital_banking_tp4_backend.repository.BankAccountRepository;
 import com.enset.digital_banking_tp4_backend.repository.CustomerRepository;
@@ -67,6 +69,18 @@ public class BackEndApp {
                 savingAccount.setInterestRate(6.3);
                 savingAccount.setCurrency("DH");
                     bankAccountRepository.save(savingAccount);
+            });
+            bankAccountRepository.findAll().forEach(acc -> {
+                for (int i =0; i < 10; i++) {
+                    AccountOperations accountOperations = new AccountOperations();
+                    accountOperations.setOperationDate(LocalDate.now());
+                    accountOperations.setAmount(Math.random() * 99000);
+                    accountOperations.setType(Math.random()>0.5? OperationType.CREDIT: OperationType.DEBIT);
+                    accountOperations.setBankAccount(acc);
+                    accountOperationsRepository.save(accountOperations);
+                }
+
+
             });
         };
     }
