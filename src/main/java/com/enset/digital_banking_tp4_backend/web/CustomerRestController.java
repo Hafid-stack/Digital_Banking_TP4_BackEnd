@@ -1,11 +1,11 @@
 package com.enset.digital_banking_tp4_backend.web;
 
 import com.enset.digital_banking_tp4_backend.dtos.CustomerDTO;
+import com.enset.digital_banking_tp4_backend.exceptions.CustomerNotFoundException;
 import com.enset.digital_banking_tp4_backend.service.BankAccountService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,4 +18,13 @@ public class CustomerRestController {
 public List<CustomerDTO> customers(){
     return bankAccountService.listCustomers();
 }
+@GetMapping("/customer/{id}")
+public CustomerDTO getCustomerById(@PathVariable(name="id") Long id) throws CustomerNotFoundException {
+return bankAccountService.getCustomer(id);
+}
+@PostMapping("/customers")
+    public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO) throws CustomerNotFoundException {
+        return bankAccountService.saveCustomer(customerDTO);
+}
+
 }

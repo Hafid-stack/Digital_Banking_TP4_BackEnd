@@ -13,7 +13,7 @@ import com.enset.digital_banking_tp4_backend.exceptions.CustomerNotFoundExceptio
 import java.util.List;
 
 public interface BankAccountService {
-    Customer saveCustomer(Customer customer);
+    CustomerDTO saveCustomer(CustomerDTO customerDTO);
     CurrentAccount saveCurrentBankAccount(double initialBalance, double overDraft, Long customerId) throws CustomerNotFoundException;
     SavingAccount saveSavingBankAccount(double initialBalance, double interestRate, Long customerId) throws CustomerNotFoundException;
     List<CustomerDTO> listCustomers();
@@ -24,4 +24,6 @@ public interface BankAccountService {
 
 
     List<BankAccount> getBankAccountsList();
+
+    CustomerDTO getCustomer(Long customerId) throws CustomerNotFoundException;
 }

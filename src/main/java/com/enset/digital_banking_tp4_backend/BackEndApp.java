@@ -1,5 +1,6 @@
 package com.enset.digital_banking_tp4_backend;
 
+import com.enset.digital_banking_tp4_backend.dtos.CustomerDTO;
 import com.enset.digital_banking_tp4_backend.entities.*;
 import com.enset.digital_banking_tp4_backend.enums.AccountStatus;
 import com.enset.digital_banking_tp4_backend.enums.OperationType;
@@ -34,7 +35,7 @@ public class BackEndApp {
     CommandLineRunner commandLineRunner(BankAccountService bankAccountService, AccountOperationsRepository accountOperationsRepository) {
         return args -> {
             Stream.of("Hafid","Mohamed","Johanna").forEach(name -> {
-                Customer customer = new Customer();
+                CustomerDTO customer = new CustomerDTO();
                 customer.setName(name);
                 customer.setEmail(name + "@gmail.com");
                 bankAccountService.saveCustomer(customer);
