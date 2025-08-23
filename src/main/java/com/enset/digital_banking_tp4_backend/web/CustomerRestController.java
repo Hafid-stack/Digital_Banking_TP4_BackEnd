@@ -27,4 +27,14 @@ return bankAccountService.getCustomer(id);
         return bankAccountService.saveCustomer(customerDTO);
 }
 
+        @PutMapping("/customers/{customerId}")
+    public CustomerDTO updateCustomer(@PathVariable Long customerId, @RequestBody CustomerDTO customerDTO) throws CustomerNotFoundException {
+        customerDTO.setId(customerId);
+        return bankAccountService.updateCustomer(customerDTO);
+    }
+
+        @DeleteMapping("/customers/{id}")
+    public void deleteCustomer(@PathVariable Long id) throws CustomerNotFoundException {
+        bankAccountService.deleteCustomer(id);
+    }
 }

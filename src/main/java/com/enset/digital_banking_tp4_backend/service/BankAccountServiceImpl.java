@@ -151,4 +151,20 @@ public CustomerDTO getCustomer(Long customerId) throws CustomerNotFoundException
         return dtoMapper.fromCustomer(customer);
 
     }
+
+
+    @Override
+    public CustomerDTO updateCustomer(CustomerDTO customerDTO) {
+        log.info("Updating customer");
+        Customer customer=dtoMapper.fromCustomerDTO(customerDTO);
+        Customer savedCustomer = customerRepository.save(customer);
+
+        return dtoMapper.fromCustomer(savedCustomer);
+    }
+    @Override
+    public void deleteCustomer(Long customerId) {
+
+        log.info("Deleting customer");
+        customerRepository.deleteById(customerId);
+    }
 }
