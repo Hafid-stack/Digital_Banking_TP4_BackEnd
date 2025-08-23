@@ -1,6 +1,7 @@
 package com.enset.digital_banking_tp4_backend.service;
 
 import com.enset.digital_banking_tp4_backend.entities.*;
+import com.enset.digital_banking_tp4_backend.enums.AccountStatus;
 import com.enset.digital_banking_tp4_backend.enums.OperationType;
 import com.enset.digital_banking_tp4_backend.exceptions.BalanceInsufficientException;
 import com.enset.digital_banking_tp4_backend.exceptions.BankAccountNotFoundException;
@@ -49,6 +50,8 @@ public class BankAccountServiceImpl implements BankAccountService {
         currentAccount.setCustomer(customer);
         currentAccount.setOverDraft(overDraft);
         currentAccount.setCreditedAt(LocalDate.now());
+        currentAccount.setCurrency("DH");
+        currentAccount.setStatus(AccountStatus.CREATED);
         CurrentAccount savedBankAccount= bankAccountRepository.save(currentAccount);
         return savedBankAccount;
 
@@ -66,6 +69,8 @@ public class BankAccountServiceImpl implements BankAccountService {
         savingAccount.setCustomer(customer);
         savingAccount.setInterestRate(interestRate);
         savingAccount.setCreditedAt(LocalDate.now());
+        savingAccount.setCurrency("DH");
+        savingAccount.setStatus(AccountStatus.CREATED);
         SavingAccount savedBankAccount= bankAccountRepository.save(savingAccount);
         return savedBankAccount;
     }
@@ -122,5 +127,9 @@ public class BankAccountServiceImpl implements BankAccountService {
         debit(accountIdSource,amount,"Transfer to "+ accountIdDestination);
         credit(accountIdDestination,amount,"Transfer from "+accountIdSource);
 
+    }
+    @Override
+    public List<BankAccount> getBankAccountsList() {
+        return bankAccountRepository.findAll();
     }
 }
