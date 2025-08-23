@@ -1,11 +1,13 @@
 package com.enset.digital_banking_tp4_backend.service;
 
+import com.enset.digital_banking_tp4_backend.dtos.CustomerDTO;
 import com.enset.digital_banking_tp4_backend.entities.*;
 import com.enset.digital_banking_tp4_backend.enums.AccountStatus;
 import com.enset.digital_banking_tp4_backend.enums.OperationType;
 import com.enset.digital_banking_tp4_backend.exceptions.BalanceInsufficientException;
 import com.enset.digital_banking_tp4_backend.exceptions.BankAccountNotFoundException;
 import com.enset.digital_banking_tp4_backend.exceptions.CustomerNotFoundException;
+import com.enset.digital_banking_tp4_backend.mappers.BankAccountMapperImpl;
 import com.enset.digital_banking_tp4_backend.repository.AccountOperationsRepository;
 import com.enset.digital_banking_tp4_backend.repository.BankAccountRepository;
 import com.enset.digital_banking_tp4_backend.repository.CustomerRepository;
@@ -16,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,6 +32,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     private BankAccountRepository bankAccountRepository;
     private CustomerRepository customerRepository;
     private AccountOperationsRepository accountOperationsRepository;
+    private BankAccountMapperImpl dtoMapper;
 
     @Override
     public Customer saveCustomer(Customer customer) {
@@ -77,8 +81,14 @@ public class BankAccountServiceImpl implements BankAccountService {
 
 
     @Override
-    public List<Customer> listCustomers() {
-        return customerRepository.findAll();
+    public List<CustomerDTO> listCustomers() {
+        List<Customer> customers= customerRepository.findAll();
+        List<CustomerDTO> customerDTOS = new ArrayList<>();
+        for (Customer customer : customers) {
+            CustomerDTO customerDTO=dtoMapper.fromCustomer(customer);
+            customerDTOS.add(customerDTO);
+        }
+        return customerDTOS;
     }
 
     @Override
