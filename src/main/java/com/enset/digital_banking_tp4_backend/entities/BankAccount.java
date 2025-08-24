@@ -19,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public  class BankAccount   {
+public  class BankAccount  {
     @Id
     private String id;
     @Min(0)

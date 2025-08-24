@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public  class CurrentBankAccountDTO {
+public  class CurrentBankAccountDTO extends BankAccountDTO {
 
     private String id;
 

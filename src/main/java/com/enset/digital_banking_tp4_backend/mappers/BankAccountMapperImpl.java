@@ -36,7 +36,7 @@ public class BankAccountMapperImpl {
         savingAccount.setCustomer(fromCustomerDTO(savingBankAccountDTO.getCustomerDTO()));
         return savingAccount;
     }
-    public CurrentBankAccountDTO fromCurrentBankAccountDTO(CurrentAccount currentAccount) {
+    public CurrentBankAccountDTO fromCurrentBankAccount(CurrentAccount currentAccount) {
         CurrentBankAccountDTO currentBankAccountDTO = new CurrentBankAccountDTO();
 
         BeanUtils.copyProperties(currentAccount, currentBankAccountDTO);
@@ -44,7 +44,7 @@ public class BankAccountMapperImpl {
         return currentBankAccountDTO;
 
     }
-    public CurrentAccount fromCurrentAccount(CurrentBankAccountDTO currentBankAccountDTO) {
+    public CurrentAccount fromCurrentBankAccountDTO(CurrentBankAccountDTO currentBankAccountDTO) {
         CurrentAccount currentAccount = new CurrentAccount();
         BeanUtils.copyProperties(currentBankAccountDTO, currentAccount);
         currentAccount.setCustomer(fromCustomerDTO(currentBankAccountDTO.getCustomerDTO()));
